@@ -1,0 +1,62 @@
+/* Full page container with red background */
+.login-page-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #16423C;
+}
+
+/* Auth form container with custom background */
+.auth-form-container {
+  background-color: white; /* Your custom background */
+  color: black;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Input and button styles */
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #16423C;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.login-form button:hover {
+  background-color: #f05971;
+}
+
+.link {
+  color: #E9EFEC;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.social-container a {
+  margin: 0 10px;
+  color: black;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+.social-container a:hover {
+  color: #e94560;
+}
