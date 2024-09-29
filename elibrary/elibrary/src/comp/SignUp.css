@@ -1,0 +1,61 @@
+/* Reuse styles from login.css or customize as needed */
+.auth-form-container {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    padding: 40px;
+    background: #ffffff;
+    /* background-color: #16423C; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .signup-form h2 {
+    margin-bottom: 20px;
+  }
+  
+  .social-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .social {
+    margin: 0 10px;
+    color: #555;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  
+  .signup-form span {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .signup-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #16423C;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .signup-form button:hover {
+    background-color: #2f6e66;
+  }
+  
+  .signup-form .link {
+    color: #28a745;
+    cursor: pointer;
+  }
+  
