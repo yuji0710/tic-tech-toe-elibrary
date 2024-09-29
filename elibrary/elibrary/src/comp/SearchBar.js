@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SearchBar.css';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, onHomeClick }) => {
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -14,6 +14,12 @@ const SearchBar = ({ onSearch }) => {
   const handleSearch = (event) => {
     event.preventDefault();
     onSearch(searchText);
+  };
+
+  const handleHomeClick = () => {
+    setSearchText(''); // Clear the input in SearchBar
+    onHomeClick(); // Call the home click handler from App
+    navigate('/'); // Navigate to home
   };
 
   const handleProfileClick = () => {
@@ -28,10 +34,6 @@ const SearchBar = ({ onSearch }) => {
   const handleSignupClick = () => {
     navigate('/signup');
     setDropdownOpen(false);
-  };
-
-  const handleHomeClick = () => {
-    navigate('/');
   };
 
   // Close dropdown if clicked outside
@@ -61,7 +63,7 @@ const SearchBar = ({ onSearch }) => {
             placeholder="Search for news, articles..."
             aria-label="Search"
             onChange={handleOnChange}
-            value={searchText}
+            value={searchText} // This will now be cleared when home is clicked
           />
           <button className="search-button" type="submit">
             Search
