@@ -1,45 +1,58 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs'); // To hash passwords
+const jwt = require('jsonwebtoken'); // For generating tokens
+const User = require('./models/User'); // Import the User model
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
 
-// Initialize app and middleware
 const app = express();
-app.use(cors());
-app.use(express.json()); // For parsing application/json
+const PORT = process.env.PORT || 5000;
+const JWT_SECRET = "your_secret_key"; // Replace with your own secret key
+
+// Middleware
+app.use(cors()); // To handle CORS issues
+app.use(express.json()); // To parse JSON request body
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
-
-// User Schema
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String,
+mongoose.connect('mongodb://localhost:27017/elibrary', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((error) => {
+  console.log('Error connecting to MongoDB:', error);
 });
 
-const User = mongoose.model('User', userSchema);
-
-// Routes
-
-// Sign up route
+// Signup route
 app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
+
   try {
+    // Check if the user already exists
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: "User already exists" });
     }
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    user = new User({ name, email, password: hashedPassword });
+
+    // Create a new user
+    user = new User({
+      name,
+      email,
+      password: hashedPassword
+    });
+
     await user.save();
 
-    res.status(201).json({ message: 'User created successfully' });
+    // Generate a JWT token
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+    // Send token to client
+    res.status(201).json({ token });
   } catch (error) {
+    console.error('Signup error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -47,26 +60,32 @@ app.post('/signup', async (req, res) => {
 // Login route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
+
   try {
+    // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // Compare the entered password with the hashed password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: user._id }, 'jwtSecret', { expiresIn: '1h' });
-    res.json({ token });
+    // Generate a JWT token
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+    // Send token to client
+    res.status(200).json({ token });
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

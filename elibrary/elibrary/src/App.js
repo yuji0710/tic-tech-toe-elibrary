@@ -33,7 +33,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor:"#121212"}}>
       <SearchBar onSearch={handleSearch} onHomeClick={handleHomeClick} />
       <Routes>
         <Route path="/" element={<Cards text={searchText || randomQuery} />} /> {/* Use random query */}

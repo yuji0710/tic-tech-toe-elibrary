@@ -13,23 +13,22 @@ const Signup = () => {
     try {
       const response = await fetch('http://localhost:5000/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
       });
-      
+
       const data = await response.json();
       if (response.ok) {
         console.log('User signed up:', data);
-        navigate('/'); // Redirect to home after signup
+        localStorage.setItem('token', data.token); // Save token to local storage
+        navigate('/'); // Redirect to home after signup (and automatic login)
       } else {
         console.error('Sign up error:', data.message);
-        alert(data.message || 'Sign up failed. Please try again.'); // Notify the user
+        alert(data.message || 'Sign up failed. Please try again.');
       }
     } catch (error) {
       console.error('Sign up failed:', error);
-      alert("An error occurred. Please try again."); // Notify the user of any errors
+      alert("An error occurred. Please try again.");
     }
   };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './MainCard.css';
 
 const MainCard = ({ title, description, imageUrl, newsUrl, author, date }) => {
   const hasImage = !!imageUrl;

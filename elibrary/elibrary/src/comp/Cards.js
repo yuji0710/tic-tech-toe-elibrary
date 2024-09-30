@@ -82,7 +82,7 @@ export default class Cards extends Component {
     const filteredItems = items.filter(item => item.volumeInfo && item.volumeInfo.imageLinks);
 
     return (
-      <div className="my-3" style={{ backgroundColor: '#1a1a2e', borderRadius: '20px' }}>
+      <div className="my-3" >
         {error && <div className="alert alert-danger">{error}</div>}
 
         {filteredItems.length === 0 && !loading && !error && (

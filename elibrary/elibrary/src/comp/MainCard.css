@@ -1,0 +1,19 @@
+.card {
+    background-color: #2D2D2D; /* Dark gray for cards */
+    border: 1px solid #444; /* Lighter gray for border */
+    border-radius: 10px; /* Rounded corners */
+    transition: transform 0.2s; /* Animation effect on hover */
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+  }
+  
+  /* Card content text colors */
+  .card-title {
+    color: #E9EFEC; /* Light color for titles */
+  }
+  
+  .card-description {
+    color: #A7A7C1; /* Medium gray for descriptions */
+  }
