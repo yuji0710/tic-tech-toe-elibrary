@@ -5,8 +5,10 @@ import './MainCard.css';
 const MainCard = ({ title, description, imageUrl, newsUrl, author, date }) => {
   const hasImage = !!imageUrl;
 
-  // For testing, replace newsUrl with a static URL
-  const exampleUrl = newsUrl || "https://www.example.com"; // Replace with any valid URL
+  // Define the function to open the link
+  const openLinkFunc = () => {
+    window.open(newsUrl || "https://www.example.com", '_blank'); // Use the provided URL or a fallback
+  };
 
   return (
     <div
@@ -19,7 +21,9 @@ const MainCard = ({ title, description, imageUrl, newsUrl, author, date }) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        cursor: 'pointer', // Makes it clear the card is clickable
       }}
+      onClick={openLinkFunc} // Attach the function to the whole card
     >
       {/* Card Image */}
       {hasImage ? (
@@ -76,19 +80,6 @@ const MainCard = ({ title, description, imageUrl, newsUrl, author, date }) => {
         </p>
         <p className="card-text"><small>By {author || "Unknown Author"}</small></p>
         <p className="card-text"><small>{date}</small></p>
-
-        {/* Link styled as a button */}
-        <a
-          href={exampleUrl}
-          className="btn btn-outline-light btn-sm"
-          style={{
-            borderRadius: '20px',
-          }}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open Link
-        </a>
       </div>
 
       {/* Hover effect to reveal overlay */}
