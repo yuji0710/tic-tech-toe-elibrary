@@ -2,12 +2,16 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './MainCard.css';
 
-const MainCard = ({ title, description, imageUrl, newsUrl, author, date }) => {
+const MainCard = ({ title, description, imageUrl, newsUrl, author, date ,query}) => {
   const hasImage = !!imageUrl;
 
   // Define the function to open the link
   const openLinkFunc = () => {
-    window.open(newsUrl || "https://www.example.com", '_blank'); // Use the provided URL or a fallback
+     window.open(newsUrl || "https://www.example.com", '_blank'); 
+
+    window.open(`{https://openlibrary.org/search?q=${title}&mode=everything}`,'_blank');
+    console.log(newsUrl)
+    // console.log(`{https://openlibrary.org/search?q=${}&mode=everything}`);
   };
 
   return (
